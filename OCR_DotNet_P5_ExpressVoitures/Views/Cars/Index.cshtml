@@ -1,0 +1,64 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using static OCR_DotNet_P5_ExpressVoitures.Models.Util
+@inject SignInManager<IdentityUser> SignInManager
+@model IEnumerable<OCR_DotNet_P5_ExpressVoitures.Models.ViewModels.CarMainInfosModel>
+
+@{
+    ViewData["Title"] = "Nos voitures";
+}
+
+<div class="div-center">
+    <div class="page-title">Nos voitures</div>
+    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+    {
+        <p>
+            <br />
+            <a asp-action="Create" class="btn btn-action">+ Ajouter une voiture</a>
+		</p>
+	}
+</div>
+<br />
+<div class="row row-cols-2">
+    @foreach (var item in Model)
+    {
+        <div class="card card-thumbnail">
+            <div class="d-flex flex-row justify-content-around">
+                <img src="@item.ImagePath" class="thumbnail-image-mini" />
+                <table class="tbl-thumbnail-infos-mini">
+                    <tr class="selling-price">
+                        <td><label asp-for="@item.SellingPrice" class="control-label"></label></td>
+						<td>@FormatValueAsCurrency(@item.SellingPrice)</td>
+                    </tr>
+                    <tr>
+                        <td><label asp-for="@item.Year" class="control-label"></label></td>
+                        <td>@item.Year</td>
+                    </tr>
+                    <tr>
+                        <td><label asp-for="@item.Brand" class="control-label"></label></td>
+                        <td>@item.Brand</td>
+                    </tr>
+                    <tr>
+                        <td><label asp-for="@item.Model" class="control-label"></label></td>
+                        <td>@item.Model</td>
+                    </tr>
+                    <tr>
+                        <td><label asp-for="@item.Finish" class="control-label"></label></td>
+                        <td>@item.Finish</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                            {
+                                <a class="btn-link" asp-action="DetailsForAdmin" asp-route-id="@item.IdCar">Voir le détail</a>
+                            }
+                            @if (!SignInManager.IsSignedIn(User) || !User.IsInRole("Admin"))
+                            {
+                                <a class="btn-link" asp-action="Details" asp-route-id="@item.IdCar">Voir le détail</a>
+                            }
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    }
+</div>
