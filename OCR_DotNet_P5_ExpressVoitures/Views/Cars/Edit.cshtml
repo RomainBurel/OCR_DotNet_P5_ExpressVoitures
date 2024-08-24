@@ -1,0 +1,145 @@
+﻿@model OCR_DotNet_P5_ExpressVoitures.Models.ViewModels.CarModel
+
+@{
+    ViewData["Title"] = "Modifier";
+}
+
+<div class="div-center page-title">Modifier</div>
+<br />
+<form enctype="multipart/form-data" asp-action="Edit">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="IdCar" />
+    <input type="hidden" asp-for="ImagePath" />
+    <div class="d-flex flex-row justify-content-around">
+        <div class="form-group">
+            <label asp-for="UploadedImage" class="control-label"></label>
+            <div class="custom-file">
+                <input asp-for="UploadedImage" type="file" name="UploadedImage" class="custom-file-input" id="UploadedImageFile"
+                    onchange="document.getElementById('UploadedImagePrv').src = window.URL.createObjectURL(this.files[0])" />
+            </div>
+            <img id="UploadedImagePrv" class="thumbnail-image" src="/@Model.ImagePath" alt="Photo" style="border:1px;margin-top:20px;" />
+        </div>
+        <table class="tbl-thumbnail-infos">
+            <tr>
+                <td class="thumbnail-infos-label"><label asp-for="@Model.Year" class="control-label"></label></td>
+                <td>
+                    <input asp-for="Year" class="form-control" min="1990" />
+                    <span asp-validation-for="Year" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="@Model.Brand" class="control-label"></label></td>
+                <td>
+                    <input asp-for="Brand" class="form-control" />
+                    <span asp-validation-for="Brand" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="@Model.Model" class="control-label"></label></td>
+                <td>
+                    <input asp-for="Model" class="form-control" />
+                    <span asp-validation-for="Model" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="@Model.Finish" class="control-label"></label></td>
+                <td>
+                    <input asp-for="Finish" class="form-control" />
+                    <span asp-validation-for="Finish" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr>
+            <tr>
+                <td><label asp-for="@Model.VIN" class="control-label"></label></td>
+                <td>
+                    <input asp-for="VIN" class="form-control" />
+                    <span asp-validation-for="VIN" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="@Model.DateOfBuy" class="control-label"></label></td>
+                <td>
+                    @Html.TextBoxFor(x => x.DateOfBuy, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
+                    <span asp-validation-for="DateOfBuy" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="@Model.Price" class="control-label"></label></td>
+                <td>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="@Model.RepairDescription" class="control-label"></label></td>
+                <td>
+                    <textarea asp-for="RepairDescription" class="form-control"></textarea>
+                    <span asp-validation-for="RepairDescription" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="@Model.RepairCost" class="control-label"></label></td>
+                <td>
+                    <input asp-for="RepairCost" class="form-control" />
+                    <span asp-validation-for="RepairCost" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="@Model.DateOfRepair" class="control-label"></label></td>
+                <td>
+                    @Html.TextBoxFor(x => x.DateOfRepair, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
+                    <span asp-validation-for="DateOfRepair" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="@Model.DateOfAvailabilityForSale" class="control-label"></label></td>
+                <td>
+                    @Html.TextBoxFor(x => x.DateOfAvailabilityForSale, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
+                    <span asp-validation-for="DateOfAvailabilityForSale" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="@Model.Description" class="control-label"></label></td>
+                <td>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="@Model.DateOfSale" class="control-label"></label></td>
+                <td>
+                    @Html.TextBoxFor(x => x.DateOfSale, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" })
+                    <span asp-validation-for="DateOfSale" class="text-danger"></span>
+                </td>
+            </tr>
+			<tr>
+                <td>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="NoMoreAvailable" /> @Html.DisplayNameFor(model => model.NoMoreAvailable)
+                        </label>
+                    </div>
+				</td>
+			</tr>
+		</table>
+    </div>
+    <br />
+    <div class="d-flex flex-row justify-content-center">
+        <a asp-action="Index" class="btn btn-action">Annuler</a>
+        &nbsp;
+        <input type="submit" value="Enregistrer" class="btn btn-action" />
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript" on-content-loaded="true">
+        var imgUpload = document.getElementById("@Model-Image");
+        imgUpload.addEventListener("change", function ()
+        {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+}

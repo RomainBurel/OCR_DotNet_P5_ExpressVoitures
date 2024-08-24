@@ -1,0 +1,92 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using static OCR_DotNet_P5_ExpressVoitures.Models.Util
+@inject SignInManager<IdentityUser> SignInManager
+@model OCR_DotNet_P5_ExpressVoitures.Models.ViewModels.CarModel
+
+@{
+    ViewData["Title"] = "Voiture";
+}
+
+<div>
+    <a class="btn-link" asp-action="Index">Retour</a>
+</div>
+<br />
+<div class="d-flex flex-row justify-content-around">
+    <img src="/@Model.ImagePath" class="thumbnail-image" />
+    <table class="tbl-thumbnail-infos">
+        <tr>
+            <td colspan="2">
+                <a class="btn-link" asp-action="Edit" asp-route-id="@Model.IdCar">Modifier</a>
+                &nbsp;
+                <a class="btn-link-red" asp-action="Delete" asp-route-id="@Model.IdCar">Supprimer</a>
+            </td>
+        </tr>
+        <tr class="selling-price">
+            <td class="thumbnail-infos-label"><label asp-for="@Model.SellingPrice" class="control-label"></label></td>
+            <td>@FormatValueAsCurrency(@Model.SellingPrice)</td>
+        </tr>
+        <tr>
+            <td><label asp-for="@Model.Year" class="control-label"></label></td>
+            <td>@Model.Year</td>
+        </tr>
+        <tr>
+            <td><label asp-for="@Model.Brand" class="control-label"></label></td>
+            <td>@Model.Brand</td>
+        </tr>
+        <tr>
+            <td><label asp-for="@Model.Model" class="control-label"></label></td>
+            <td>@Model.Model</td>
+        </tr>
+        <tr>
+            <td><label asp-for="@Model.Finish" class="control-label"></label></td>
+            <td>@Model.Finish</td>
+        </tr>
+        <tr>
+            <td><label asp-for="@Model.VIN" class="control-label"></label></td>
+            <td>@Model.VIN</td>
+        </tr>
+        <tr>
+            <td><label asp-for="@Model.DateOfBuy" class="control-label"></label></td>
+            <td>@Model.DateOfBuy.ToString("dd/MM/yyyy")</td>
+        </tr>
+        <tr>
+            <td><label asp-for="@Model.Price" class="control-label"></label></td>
+            <td>@FormatValueAsCurrency(@Model.Price)</td>
+        </tr>
+        <tr>
+            <td><label asp-for="@Model.RepairDescription" class="control-label"></label></td>
+            <td>@Model.RepairDescription</td>
+        </tr>
+        <tr>
+            <td><label asp-for="@Model.RepairCost" class="control-label"></label></td>
+            <td>@FormatValueAsCurrency(@Model.RepairCost)</td>
+        </tr>
+        <tr>
+            <td><label asp-for="@Model.DateOfRepair" class="control-label"></label></td>
+            @if (@Model.DateOfRepair.HasValue)
+            {
+                <td>@Model.DateOfRepair.Value.ToString("dd/MM/yyyy")</td>
+            }
+            @if (!@Model.DateOfRepair.HasValue)
+            {
+                <td></td>
+            }
+        </tr>
+        <tr>
+            <td><label asp-for="@Model.NoMoreAvailable" class="control-label"></label></td>
+            <td>@FormatBoolValue(@Model.NoMoreAvailable)</td>
+        </tr>
+        <tr>
+            <td><label asp-for="@Model.DateOfAvailabilityForSale" class="control-label"></label></td>
+            <td>@Model.DateOfAvailabilityForSale.ToString("dd/MM/yyyy")</td>
+        </tr>
+        <tr>
+            <td><label asp-for="@Model.Description" class="control-label"></label></td>
+            <td>@Model.Description</td>
+        </tr>
+        <tr>
+            <td><label asp-for="@Model.DateOfSale" class="control-label"></label></td>
+            <td>@Model.DateOfSale</td>
+        </tr>
+    </table>
+</div>

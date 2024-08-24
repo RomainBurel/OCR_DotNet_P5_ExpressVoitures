@@ -1,22 +1,108 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    font-family: "DM Serif Display", serif;
+    margin-bottom: 60px;
 }
+
+.img-accueil {
+    width: 800px;
+    height: 600px;
+    padding-top: 10px;
+}
+
+.div-login {
+    padding-left: 400px;
+}
+
+.div-center {
+    text-align: center;
+}
+
+.page-title {
+    color: #796157;
+    font-size: 30px;
+    font-style: italic;
+}
+
+.selling-price {
+    color: #2C1810;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.card-thumbnail {
+    width: 630px;
+    height: 350px;
+    border: none;
+    padding-left: 20px;
+    margin-top: 20px;
+}
+
+.thumbnail-image {
+    min-width: 600px;
+    height: 582px;
+    margin-right: 20px;
+}
+
+.tbl-thumbnail-infos {
+    min-width: 600px;
+}
+
+.thumbnail-infos-label {
+    min-width: 180px;
+}
+
+.thumbnail-image-mini {
+    min-width: 350px;
+    height: 340px;
+    border-radius: 10px 10px;
+    margin-right: 20px;
+}
+
+.tbl-thumbnail-infos-mini {
+    min-width: 250px;
+}
+
+.btn-link {
+    color: #2C1810;
+}
+
+.btn-link-red {
+    color: red;
+}
+
+.btn-link:hover {
+    color: #D9A963;
+}
+
+.btn-login {
+    width: 100%;
+}
+
+.btn-action {
+    color: black;
+    background-color: #D9A963;
+}
+
+    .btn-action:hover {
+        color: white;
+        background-color: #B99056;
+    }

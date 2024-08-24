@@ -1,0 +1,13 @@
+﻿@model OCR_DotNet_P5_ExpressVoitures.Models.ViewModels.NotificationModel
+
+@{
+	ViewData["Title"] = Model.Title;
+}
+
+<div class="div-center">
+	<div class="page-title">@Model.Title</div>
+	<br />
+	<div>@Model.Message</div>
+	<br />
+	<a class="btn btn-action" asp-action="Index">Retour à l'accueil</a>
+</div>

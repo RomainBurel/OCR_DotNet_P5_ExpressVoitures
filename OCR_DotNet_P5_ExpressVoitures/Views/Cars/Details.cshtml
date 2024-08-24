@@ -1,0 +1,42 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using static OCR_DotNet_P5_ExpressVoitures.Models.Util
+@inject SignInManager<IdentityUser> SignInManager
+@model OCR_DotNet_P5_ExpressVoitures.Models.ViewModels.CarMainInfosModel
+
+@{
+    ViewData["Title"] = "Voiture";
+}
+
+<div>
+    <a class="btn-link" asp-action="Index">Retour</a>
+</div>
+<br />
+<div class="d-flex flex-row justify-content-around">
+    <img src="/@Model.ImagePath" class="thumbnail-image" />
+    <table class="tbl-thumbnail-infos">
+        <tr class="selling-price">
+            <td class="thumbnail-infos-label"><label asp-for="@Model.SellingPrice" class="control-label"></label></td>
+            <td>@FormatValueAsCurrency(@Model.SellingPrice)</td>
+        </tr>
+        <tr>
+            <td><label asp-for="@Model.Year" class="control-label"></label></td>
+            <td>@Model.Year</td>
+        </tr>
+        <tr>
+            <td><label asp-for="@Model.Brand" class="control-label"></label></td>
+            <td>@Model.Brand</td>
+        </tr>
+        <tr>
+            <td><label asp-for="@Model.Model" class="control-label"></label></td>
+            <td>@Model.Model</td>
+        </tr>
+        <tr>
+            <td><label asp-for="@Model.Finish" class="control-label"></label></td>
+            <td>@Model.Finish</td>
+        </tr>
+        <tr>
+            <td><label asp-for="@Model.Description" class="control-label"></label></td>
+            <td>@Model.Description</td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,20 @@
+﻿@model string
+
+<div class="form-group">
+    <label asp-for="@Model" class="control-label"></label>
+    <div class="custom-file">
+        <input asp-for="@Model" type="file" name="@Model" class="custom-file-input" id="@Model-Image"
+            onchange="document.getElementById('@Model-ImagePrv').src = window.URL.createObjectURL(this.files[0])" />
+    </div>
+    @Html.ValidationMessage(Model, new { id="vmId", @class="text-danger" })
+    <img id="@Model-ImagePrv" class="thumbnail-image" src="~/img/default.jpg" alt="Photo" style="border:1px;margin-top:20px;" />
+</div>
+
+<script type="text/javascript" on-content-loaded="true">
+    var imgUpload = document.getElementById("@Model-Image");
+    imgUpload.addEventListener("change", function ()
+    {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>

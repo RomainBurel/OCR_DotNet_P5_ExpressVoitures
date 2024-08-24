@@ -1,0 +1,61 @@
+﻿@using static OCR_DotNet_P5_ExpressVoitures.Models.Util
+@model OCR_DotNet_P5_ExpressVoitures.Models.ViewModels.CarModel
+
+@{
+    ViewData["Title"] = "Supprimer";
+}
+
+<div class="div-center page-title">Confirmez-vous la suppression ?</div>
+<br />
+<form asp-action="Delete">
+    @Html.AntiForgeryToken()
+	<div class="d-flex flex-row justify-content-around">
+        <img src="/@Model.ImagePath" class="thumbnail-image" />
+        <table class="tbl-thumbnail-infos">
+            <tr class="selling-price">
+                <td class="thumbnail-infos-label"><label asp-for="@Model.SellingPrice" class="control-label"></label></td>
+                <td>@FormatValueAsCurrency(@Model.SellingPrice)</td>
+            </tr>
+            <tr>
+                <td><label asp-for="@Model.Year" class="control-label"></label></td>
+                <td>@Model.Year</td>
+            </tr>
+            <tr>
+                <td><label asp-for="@Model.Brand" class="control-label"></label></td>
+                <td>@Model.Brand</td>
+            </tr>
+            <tr>
+                <td><label asp-for="@Model.Model" class="control-label"></label></td>
+                <td>@Model.Model</td>
+            </tr>
+            <tr>
+                <td><label asp-for="@Model.Finish" class="control-label"></label></td>
+                <td>@Model.Finish</td>
+            </tr>
+            <tr>
+                <td><label asp-for="@Model.VIN" class="control-label"></label></td>
+                <td>@Model.VIN</td>
+            </tr>
+            <tr>
+                <td><label asp-for="@Model.DateOfBuy" class="control-label"></label></td>
+                <td>@Model.DateOfBuy.ToString("dd/MM/yyyy")</td>
+            </tr>
+            <tr>
+                <td><label asp-for="@Model.Price" class="control-label"></label></td>
+                <td>@FormatValueAsCurrency(@Model.Price)</td>
+            </tr>
+        </table>
+    </div>
+    <br />
+    <div class="d-flex flex-row justify-content-center">
+        <input type="hidden" asp-for="IdCar" />
+        <input type="hidden" asp-for="Year" />
+        <input type="hidden" asp-for="Brand" />
+        <input type="hidden" asp-for="Model" />
+        <input type="hidden" asp-for="Finish" />
+        <input type="hidden" asp-for="ImagePath" />
+        <a asp-action="Index" class="btn btn-action">Annuler</a>
+        &nbsp;
+		<input type="submit" value="Supprimer" class="btn btn-danger" />
+	</div>
+</form>
