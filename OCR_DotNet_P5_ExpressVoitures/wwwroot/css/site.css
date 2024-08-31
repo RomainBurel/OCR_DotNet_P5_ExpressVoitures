@@ -59,7 +59,10 @@ body {
 .thumbnail-image {
     min-width: 600px;
     height: 582px;
+    border-radius: 10px 10px;
     margin-right: 20px;
+    border-color: lightgrey;
+    border-style: solid;
 }
 
 .tbl-thumbnail-infos {
@@ -75,6 +78,8 @@ body {
     height: 340px;
     border-radius: 10px 10px;
     margin-right: 20px;
+    border-color: lightgrey;
+    border-style: solid;
 }
 
 .tbl-thumbnail-infos-mini {
@@ -102,7 +107,7 @@ body {
     background-color: #D9A963;
 }
 
-    .btn-action:hover {
-        color: white;
-        background-color: #B99056;
-    }
+.btn-action:hover {
+    color: white;
+    background-color: #B99056;
+}
