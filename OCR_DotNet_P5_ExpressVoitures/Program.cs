@@ -14,6 +14,11 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddScoped<DbContext, ApplicationDbContext>();
 builder.Services.AddScoped<ICarRepository, CarRepository>();
+builder.Services.AddScoped<IBrandRepository, BrandRepository>();
+builder.Services.AddScoped<IBrandModelRepository, BrandModelRepository>();
+builder.Services.AddScoped<IModelRepository, ModelRepository>();
+builder.Services.AddScoped<IModelFinishRepository, ModelFinishRepository>();
+builder.Services.AddScoped<IFinishRepository, FinishRepository>();
 builder.Services.AddScoped<ICarService, CarService>();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)

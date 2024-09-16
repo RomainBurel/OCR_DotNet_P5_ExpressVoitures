@@ -1,9 +1,11 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using OCR_DotNet_P5_ExpressVoitures.Models.Entities;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace OCR_DotNet_P5_ExpressVoitures.Models.ViewModels
 {
-    public class CarModel: IValidatableObject
+    public class CarModel : IValidatableObject
     {
         public int IdCar { get; set; }
 
@@ -12,20 +14,20 @@ namespace OCR_DotNet_P5_ExpressVoitures.Models.ViewModels
 
         [Required(ErrorMessage = "La saisie de l'année est obligatoire.")]
         [DisplayName("Année")]
-		[RangeUntilCurrentYear(1990, ErrorMessage = "L'année doit être comprise entre 1990 et aujourd'hui.")]
-		public int Year { get; set; }
+        [RangeUntilCurrentYear(1990, ErrorMessage = "L'année doit être comprise entre 1990 et aujourd'hui.")]
+        public int Year { get; set; }
 
         [Required(ErrorMessage = "La saisie de la marque est obligatoire.")]
         [DisplayName("Marque")]
-        public string Brand { get; set; }
+        public int IdBrand { get; set; }
 
         [Required(ErrorMessage = "La saisie du modèle est obligatoire.")]
         [DisplayName("Modèle")]
-        public string Model { get; set; }
+        public int IdModel { get; set; }
 
-		[Required(ErrorMessage = "La saisie de la finition est obligatoire.")]
-		[DisplayName("Finition")]
-        public string? Finish { get; set; }
+        [Required(ErrorMessage = "La saisie de la finition est obligatoire.")]
+        [DisplayName("Finition")]
+        public int IdFinish { get; set; }
 
         [Required(ErrorMessage = "La saisie de la date d'achat est obligatoire.")]
         [DisplayName("Date d'achat")]
@@ -33,9 +35,9 @@ namespace OCR_DotNet_P5_ExpressVoitures.Models.ViewModels
         public DateTime DateOfBuy { get; set; }
 
         [Required(ErrorMessage = "La saisie du prix d'achat est obligatoire.")]
-		[DisplayName("Prix d'achat")]
-		[DisplayFormat(DataFormatString = "{0:C0}")]
-		public double Price { get; set; }
+        [DisplayName("Prix d'achat")]
+        [DisplayFormat(DataFormatString = "{0:C0}")]
+        public double Price { get; set; }
 
         [DisplayName("Réparation(s) effectuée(s)")]
         public string? RepairDescription { get; set; }
@@ -45,9 +47,9 @@ namespace OCR_DotNet_P5_ExpressVoitures.Models.ViewModels
         public DateTime? DateOfRepair { get; set; }
 
         [Required(ErrorMessage = "La saisie du coût de réparation est obligatoire (mettre 0 si aucun).")]
-		[DisplayName("Coût de la réparation")]
-		[DisplayFormat(DataFormatString = "{0:C0}")]
-		public double RepairCost { get; set; }
+        [DisplayName("Coût de la réparation")]
+        [DisplayFormat(DataFormatString = "{0:C0}")]
+        public double RepairCost { get; set; }
 
         [DisplayName("Véhicule plus disponible")]
         public bool NoMoreAvailable { get; set; }
@@ -58,7 +60,7 @@ namespace OCR_DotNet_P5_ExpressVoitures.Models.ViewModels
         public DateTime DateOfAvailabilityForSale { get; set; }
 
         [DisplayName("Prix de vente")]
-		[DisplayFormat(DataFormatString = "{0:C0}")]
+        [DisplayFormat(DataFormatString = "{0:C0}")]
         public double SellingPrice { get; set; }
 
         public string? Description { get; set; }
@@ -73,6 +75,15 @@ namespace OCR_DotNet_P5_ExpressVoitures.Models.ViewModels
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime? DateOfSale { get; set; }
 
+        [ValidateNever]
+        public string BrandName { get; set; } = string.Empty;
+
+        [ValidateNever]
+        public string ModelName { get; set; } = string.Empty;
+
+        [ValidateNever]
+        public string FinishName { get; set; } = string.Empty;
+
         public CarModel()
         {
             this.Year = 1990;
@@ -82,7 +93,7 @@ namespace OCR_DotNet_P5_ExpressVoitures.Models.ViewModels
 
         public string GetCarSummary()
         {
-            return this.Brand + " " + this.Model + " " + this.Finish + " (" + this.Year + ")";
+            return this.BrandName + " " + this.ModelName + " " + this.FinishName + " (" + this.Year + ")";
         }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

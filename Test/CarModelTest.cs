@@ -3,68 +3,38 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Test
 {
-    public class CarModelTest
-    {
-        [Fact]
-        public void CarShoudYearIsInRange1990Today()
-        {
-            // Arrange
-            var carModel = new CarModel
-            {
-                IdCar = 1,
-                VIN = "123AB56",
-                Year = 1988,
-                Brand = "Ford",
-                Model = "Fiesta",
-                Finish = "Trend",
+	public class CarModelTest
+	{
+		[Fact]
+		public void CarShoudYearIsInRange1990Today()
+		{
+			// Arrange
+			var carModel = new CarModel
+			{
+				IdCar = 1,
+				VIN = "123AB56",
+				Year = 1988,
+                IdBrand = 1,
+                IdModel = 12,
+                IdFinish = 7,
                 DateOfBuy = new DateTime(2024, 1, 1),
-                Price = 8000d,
-                DateOfRepair = new DateTime(2024, 2, 1),
-                RepairCost = 1500d,
-                RepairDescription = "Révision + carrosserie",
-                DateOfAvailabilityForSale = new DateTime(2024, 2, 2),
-                Description = "Une jolie voiture",
-                NoMoreAvailable = false
-            };
+				Price = 8000d,
+				DateOfRepair = new DateTime(2024, 2, 1),
+				RepairCost = 1500d,
+				RepairDescription = "Révision + carrosserie",
+				DateOfAvailabilityForSale = new DateTime(2024, 2, 2),
+				Description = "Une jolie voiture",
+				NoMoreAvailable = false
+			};
 
-            // Act
-            var validationResults = new List<ValidationResult>();
-            var isValid = Validator.TryValidateObject(carModel, new ValidationContext(carModel), validationResults, true);
+			// Act
+			var validationResults = new List<ValidationResult>();
+			var isValid = Validator.TryValidateObject(carModel, new ValidationContext(carModel), validationResults, true);
 
-            // Assert
-            Assert.False(isValid);
-            Assert.Contains(validationResults, vr => vr.MemberNames.Contains("Year"));
-        }
-
-        [Fact]
-        public void CarShoudHaveBrand()
-        {
-            // Arrange
-            var carModel = new CarModel
-            {
-                IdCar = 1,
-                VIN = "123AB56",
-                Year = 2012,
-				Model = "Fiesta",
-                Finish = "Trend",
-                DateOfBuy = new DateTime(2024, 1, 1),
-                Price = 8000d,
-                DateOfRepair = new DateTime(2024, 2, 1),
-                RepairCost = 1500d,
-                RepairDescription = "Révision + carrosserie",
-                DateOfAvailabilityForSale = new DateTime(2024, 2, 2),
-                Description = "Une jolie voiture",
-                NoMoreAvailable = false
-            };
-
-            // Act
-            var validationResults = new List<ValidationResult>();
-            var isValid = Validator.TryValidateObject(carModel, new ValidationContext(carModel), validationResults, true);
-
-            // Assert
-            Assert.False(isValid);
-            Assert.Contains(validationResults, vr => vr.MemberNames.Contains("Brand"));
-        }
+			// Assert
+			Assert.False(isValid);
+			Assert.Contains(validationResults, vr => vr.MemberNames.Contains("Year"));
+		}
 
 		[Fact]
 		public void CarDateOfBuyShouldBeLaterOrEqualToYear()
@@ -75,10 +45,10 @@ namespace Test
 				IdCar = 1,
 				VIN = "123AB56",
 				Year = 2024,
-				Brand = "Ford",
-				Model = "Fiesta",
-				Finish = "Trend",
-				DateOfBuy = new DateTime(2023, 1, 1),
+                IdBrand = 1,
+                IdModel = 12,
+                IdFinish = 7,
+                DateOfBuy = new DateTime(2023, 1, 1),
 				Price = 8000d,
 				DateOfRepair = new DateTime(2023, 2, 1),
 				RepairCost = 1500d,
@@ -106,10 +76,10 @@ namespace Test
 				IdCar = 1,
 				VIN = "123AB56",
 				Year = 2020,
-				Brand = "Ford",
-				Model = "Fiesta",
-				Finish = "Trend",
-				DateOfBuy = new DateTime(2024, 1, 1),
+                IdBrand = 1,
+                IdModel = 12,
+                IdFinish = 7,
+                DateOfBuy = new DateTime(2024, 1, 1),
 				Price = 8000d,
 				DateOfRepair = new DateTime(2023, 2, 1),
 				RepairCost = 1500d,
@@ -137,10 +107,10 @@ namespace Test
 				IdCar = 1,
 				VIN = "123AB56",
 				Year = 2020,
-				Brand = "Ford",
-				Model = "Fiesta",
-				Finish = "Trend",
-				DateOfBuy = new DateTime(2024, 1, 1),
+                IdBrand = 1,
+                IdModel = 12,
+                IdFinish = 7,
+                DateOfBuy = new DateTime(2024, 1, 1),
 				Price = 8000d,
 				DateOfRepair = new DateTime(2024, 4, 1),
 				RepairCost = 1500d,
@@ -168,9 +138,9 @@ namespace Test
 				IdCar = 1,
 				VIN = "123AB56",
 				Year = 2024,
-				Brand = "Ford",
-				Model = "Fiesta",
-				Finish = "Trend",
+				IdBrand = 1,
+				IdModel = 12,
+				IdFinish = 7,
 				DateOfBuy = new DateTime(2024, 1, 1),
 				Price = 8000d,
 				DateOfRepair = new DateTime(2024, 1, 1),

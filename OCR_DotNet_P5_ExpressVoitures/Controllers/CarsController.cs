@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OCR_DotNet_P5_ExpressVoitures.Models.ViewModels;
 using OCR_DotNet_P5_ExpressVoitures.Services;
@@ -62,6 +63,9 @@ namespace OCR_DotNet_P5_ExpressVoitures.Controllers
         public IActionResult Create()
         {
             var carModel = new CarModel();
+            carModel.IdBrand = 1;
+            carModel.IdModel = 12;
+            carModel.IdFinish = 7;
             return View(carModel);
         }
 
@@ -71,8 +75,11 @@ namespace OCR_DotNet_P5_ExpressVoitures.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Create(CarModel carModel, IFormFile? UploadedImage)
         {
-			if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
+                carModel.BrandName = this._carService.GetBrandName(carModel.IdBrand);
+                carModel.ModelName = this._carService.GetModelName(carModel.IdModel);
+                carModel.FinishName = this._carService.GetFinishName(carModel.IdFinish);
                 this._carService.Add(carModel, UploadedImage);
 				
                 var notificationModel = new NotificationModel
@@ -120,6 +127,9 @@ namespace OCR_DotNet_P5_ExpressVoitures.Controllers
             {
                 try
 				{
+                    carModel.BrandName = this._carService.GetBrandName(carModel.IdBrand);
+                    carModel.ModelName = this._carService.GetModelName(carModel.IdModel);
+                    carModel.FinishName = this._carService.GetFinishName(carModel.IdFinish);
                     this._carService.Update(carModel, UploadedImage);
                 }
                 catch (DbUpdateConcurrencyException)
@@ -177,6 +187,9 @@ namespace OCR_DotNet_P5_ExpressVoitures.Controllers
 
             try
             {
+                carModel.BrandName = this._carService.GetBrandName(carModel.IdBrand);
+                carModel.ModelName = this._carService.GetModelName(carModel.IdModel);
+                carModel.FinishName = this._carService.GetFinishName(carModel.IdFinish);
                 this._carService.Delete(carModel);
             }
             catch (DbUpdateConcurrencyException)
@@ -205,5 +218,26 @@ namespace OCR_DotNet_P5_ExpressVoitures.Controllers
 		{
 			return View(notificationModel);
 		}
+
+        [HttpGet]
+        public IActionResult GetBrands(int idBrand)
+        {
+            var brands = this._carService.GetAllBrands().ToList();
+            return Json(new SelectList(brands, "IdBrand", "BrandName"));
+        }
+
+        [HttpGet]
+        public IActionResult GetModels(int idBrand)
+        {
+            var models = this._carService.GetBrandModels(idBrand).ToList();
+            return Json(new SelectList(models, "IdModel", "ModelName"));
+        }
+
+        [HttpGet]
+        public IActionResult GetFinishes(int idModel)
+        {
+            var finishes = this._carService.GetModelFinishes(idModel).ToList();
+            return Json(new SelectList(finishes, "IdFinish", "FinishName"));
+        }
     }
 }

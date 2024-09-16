@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OCR_DotNet_P5_ExpressVoitures.Data;
 
@@ -11,9 +12,11 @@ using OCR_DotNet_P5_ExpressVoitures.Data;
 namespace OCR_DotNet_P5_ExpressVoitures.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240914212824_update-data-model")]
+    partial class updatedatamodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -310,23 +313,6 @@ namespace OCR_DotNet_P5_ExpressVoitures.Data.Migrations
                     b.ToTable("Cars");
                 });
 
-            modelBuilder.Entity("OCR_DotNet_P5_ExpressVoitures.Models.Entities.Finish", b =>
-                {
-                    b.Property<int>("IdFinish")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdFinish"));
-
-                    b.Property<string>("FinishName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("IdFinish");
-
-                    b.ToTable("Finishes");
-                });
-
             modelBuilder.Entity("OCR_DotNet_P5_ExpressVoitures.Models.Entities.Model", b =>
                 {
                     b.Property<int>("IdModel")
@@ -346,7 +332,7 @@ namespace OCR_DotNet_P5_ExpressVoitures.Data.Migrations
 
             modelBuilder.Entity("OCR_DotNet_P5_ExpressVoitures.Models.Entities.ModelFinish", b =>
                 {
-                    b.Property<int>("IdFinish")
+                    b.Property<int>("IdBrand")
                         .HasColumnType("int");
 
                     b.Property<int>("IdModel")
