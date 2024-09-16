@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using OCR_DotNet_P5_ExpressVoitures.Models.Entities;
+using System.ComponentModel;
 
 namespace OCR_DotNet_P5_ExpressVoitures.Models.ViewModels
 {
@@ -10,13 +12,13 @@ namespace OCR_DotNet_P5_ExpressVoitures.Models.ViewModels
         public int Year { get; set; }
 
         [DisplayName("Marque")]
-        public string Brand { get; set; }
+        public int IdBrand { get; set; }
 
         [DisplayName("Modèle")]
-        public string Model { get; set; }
+        public int IdModel { get; set; }
 
         [DisplayName("Finition")]
-        public string? Finish { get; set; }
+        public int IdFinish { get; set; }
 
         [DisplayName("Prix de vente")]
         public double SellingPrice { get; set; }
@@ -28,5 +30,14 @@ namespace OCR_DotNet_P5_ExpressVoitures.Models.ViewModels
 
         [DisplayName("Photo de la voiture")]
         public IFormFile? UploadedImage { get; set; }
+
+        [ValidateNever]
+        public string BrandName { get; set; } = string.Empty;
+
+        [ValidateNever]
+        public string ModelName { get; set; } = string.Empty;
+
+        [ValidateNever]
+        public string FinishName { get; set; } = string.Empty;
     }
 }

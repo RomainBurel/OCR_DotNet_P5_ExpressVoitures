@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OCR_DotNet_P5_ExpressVoitures.Models.Entities
 {
@@ -11,11 +12,14 @@ namespace OCR_DotNet_P5_ExpressVoitures.Models.Entities
 
         public int Year { get; set; }
 
-        public string Brand { get; set; }
+        [ForeignKey(nameof(IdBrand))]
+        public int IdBrand { get; set; }
 
-        public string Model { get; set; }
+		[ForeignKey(nameof(IdModel))]
+		public int IdModel { get; set; }
 
-        public string Finish { get; set; }
+		[ForeignKey(nameof(IdFinish))]
+		public int IdFinish { get; set; }
 
         public DateTime DateOfBuy { get; set; }
 

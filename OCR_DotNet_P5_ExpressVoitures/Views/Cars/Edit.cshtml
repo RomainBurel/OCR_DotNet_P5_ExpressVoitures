@@ -28,24 +28,24 @@
                 </td>
             </tr>
             <tr>
-                <td><label asp-for="@Model.Brand" class="control-label"></label></td>
+                <td><label asp-for="@Model.IdBrand" class="control-label"></label></td>
                 <td>
-                    <input asp-for="Brand" class="form-control" />
-                    <span asp-validation-for="Brand" class="text-danger"></span>
+                    <select asp-for="IdBrand" id="Brands" name="IdBrand" class="form-control"></select>
+                    <span asp-validation-for="IdBrand" class="text-danger"></span>
                 </td>
             </tr>
             <tr>
-                <td><label asp-for="@Model.Model" class="control-label"></label></td>
+                <td><label asp-for="@Model.IdModel" class="control-label"></label></td>
                 <td>
-                    <input asp-for="Model" class="form-control" />
-                    <span asp-validation-for="Model" class="text-danger"></span>
+                    <select asp-for="IdModel" id="Models" name="IdModel" class="form-control"></select>
+                    <span asp-validation-for="IdModel" class="text-danger"></span>
                 </td>
             </tr>
             <tr>
-                <td><label asp-for="@Model.Finish" class="control-label"></label></td>
+                <td><label asp-for="@Model.IdFinish" class="control-label"></label></td>
                 <td>
-                    <input asp-for="Finish" class="form-control" />
-                    <span asp-validation-for="Finish" class="text-danger"></span>
+                    <select asp-for="IdFinish" id="Finishes" name="IdFinish" class="form-control"></select>
+                    <span asp-validation-for="IdFinish" class="text-danger"></span>
                 </td>
             </tr>
             <tr>
@@ -140,6 +140,111 @@
         {
             var fileName = $(this).val().split("\\").pop();
             $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function ()
+        {
+            /** Initialization of Brands, Models and Finishes lists + selection */
+            var idBrand = @Html.Raw(Json.Serialize(Model.IdBrand));
+            var idModel = @Html.Raw(Json.Serialize(Model.IdModel));
+            var idFinish = @Html.Raw(Json.Serialize(Model.IdFinish));
+            $.getJSON('@Url.Action("GetBrands")', { IdBrand: idBrand }, function (brands)
+            {
+                var brandsSelect = $('#Brands');
+                brandsSelect.empty();
+                $.each(brands, function (index, brand)
+                {
+                    brandsSelect.append($('<option/>', {
+                        value: brand.value,
+                        text: brand.text,
+                        selected: brand.value === idBrand.toString()
+                    }));
+                });
+            });
+
+            $.getJSON('@Url.Action("GetModels")', { IdBrand: idBrand }, function (models)
+            {
+                var modelsSelect = $('#Models');
+                modelsSelect.empty();
+                $.each(models, function (index, model)
+                {
+                    modelsSelect.append($('<option/>', {
+                        value: model.value,
+                        text: model.text,
+                        selected: model.value === idModel.toString()
+                    }));
+                });
+            });
+
+            $.getJSON('@Url.Action("GetFinishes")', { IdModel: idModel }, function (finishes)
+            {
+                var finishesSelect = $('#Finishes');
+                finishesSelect.empty();
+                $.each(finishes, function (index, finish)
+                {
+                    finishesSelect.append($('<option/>', {
+                        value: finish.value,
+                        text: finish.text,
+                        selected: finish.value === idFinish.toString()
+                    }));
+                });
+            });
+
+            /** Add change event on Brands and Models lists in order to update depending lists */
+            $('#Brands').change(function ()
+            {
+                var idBrand = $(this).val();
+                var firstModel = -1;
+                $.getJSON('@Url.Action("GetModels")', { IdBrand: idBrand }, function (models)
+                {
+                    var modelsSelect = $('#Models');
+                    modelsSelect.empty();
+                    $.each(models, function (index, model)
+                    {
+                        if (firstModel == -1)
+                        {
+                            firstModel = model.value;
+                            $.getJSON('@Url.Action("GetFinishes")', { IdModel: firstModel }, function (finishes)
+                            {
+                                var finishesSelect = $('#Finishes');
+                                finishesSelect.empty();
+                                $.each(finishes, function (index, finish)
+                                {
+                                    finishesSelect.append($('<option/>', {
+                                        value: finish.value,
+                                        text: finish.text
+                                    }));
+                                });
+                            });
+                        }
+                        modelsSelect.append($('<option/>', {
+                            value: model.value,
+                            text: model.text
+                        }));
+                    });
+                });
+            });
+
+            $('#Models').change(function ()
+            {
+                var idModel = $(this).val();
+                $.getJSON('@Url.Action("GetFinishes")', { IdModel: idModel }, function (finishes)
+                {
+                    var finishesSelect = $('#Finishes');
+                    finishesSelect.empty();
+                    $.each(finishes, function (index, finish)
+                    {
+                        finishesSelect.append($('<option/>', {
+                            value: finish.value,
+                            text: finish.text
+                        }));
+                    });
+                });
+            });
         });
     </script>
 }

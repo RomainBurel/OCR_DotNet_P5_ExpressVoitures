@@ -7,12 +7,23 @@ namespace OCR_DotNet_P5_ExpressVoitures.Services
     public class CarService : ICarService
     {
         private readonly ICarRepository _carRepository;
+        private readonly IBrandRepository _brandRepository;
+        private readonly IModelRepository _modelRepository;
+        private readonly IFinishRepository _finishRepository;
+        private readonly IBrandModelRepository _brandModelRepository;
+        private readonly IModelFinishRepository _modelFinishRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
         
-        public CarService(ICarRepository carRepository, IWebHostEnvironment webHostEnvironment)
+        public CarService(ICarRepository carRepository, IBrandRepository brandRepository, IModelRepository modelRepository, IFinishRepository finishRepository,
+			IBrandModelRepository brandModelRepository, IModelFinishRepository modelFinishRepository, IWebHostEnvironment webHostEnvironment)
         {
-            this._carRepository = carRepository;
-            this._webHostEnvironment = webHostEnvironment;
+			this._carRepository = carRepository;
+			this._brandRepository = brandRepository;
+			this._modelRepository = modelRepository;
+			this._finishRepository = finishRepository;
+            this._brandModelRepository = brandModelRepository;
+            this._modelFinishRepository = modelFinishRepository;
+			this._webHostEnvironment = webHostEnvironment;
         }
 
         public Car GetById(int id)
@@ -62,31 +73,69 @@ namespace OCR_DotNet_P5_ExpressVoitures.Services
             this._carRepository.SaveChanges();
         }
 
-        private CarMainInfosModel GetCarMainInfosModelFromCar(Car car)
+		public IEnumerable<Brand> GetAllBrands()
+        {
+            return this._brandRepository.GetAll();
+        }
+
+		public IEnumerable<Model> GetBrandModels(int idBrand)
+        {
+            IEnumerable<int> brandModelsIds = this._brandModelRepository.GetBrandModels(idBrand).Select(b => b.IdModel);
+            return this._modelRepository.GetByRangeId(brandModelsIds);
+        }
+
+		public IEnumerable<Finish> GetModelFinishes(int idModel)
+        {
+			IEnumerable<int> modelFinishesIds = this._modelFinishRepository.GetModelFinishes(idModel).Select(m => m.IdFinish);
+			return this._finishRepository.GetByRangeId(modelFinishesIds);
+		}
+
+        public string GetBrandName(int idBrand)
+        {
+            var brand = this._brandRepository.GetById(idBrand);
+            return brand != null ? brand.BrandName : string.Empty;
+        }
+
+        public string GetModelName(int idModel)
+        {
+            var model = this._modelRepository.GetById(idModel);
+            return model != null ? model.ModelName : string.Empty;
+        }
+
+        public string GetFinishName(int idFinish)
+        {
+            var finish = this._finishRepository.GetById(idFinish);
+            return finish != null ? finish.FinishName : string.Empty;
+        }
+
+		private CarMainInfosModel GetCarMainInfosModelFromCar(Car car)
         {
             return new CarMainInfosModel
             {
                 IdCar = car.IdCar,
                 Year = car.Year,
-                Brand = car.Brand,
-                Model = car.Model,
-                Finish = car.Finish,
+                IdBrand = car.IdBrand,
+                IdModel = car.IdModel,
+                IdFinish = car.IdFinish,
                 SellingPrice = car.GetSellingPrice(),
                 Description = car.Description,
-                ImagePath = car.ImagePath == null ? @"img\\default.jpg" : car.ImagePath
+                ImagePath = car.ImagePath == null ? @"img\\default.jpg" : car.ImagePath,
+                BrandName = this.GetBrandName(car.IdBrand),
+                ModelName = this.GetModelName(car.IdModel),
+                FinishName = this.GetFinishName(car.IdFinish)
             };
         }
 
         private CarModel GetCarModelFromCar(Car car)
         {
-            return new CarModel
+            return new CarModel()
             {
                 IdCar = car.IdCar,
                 VIN = car.VIN,
                 Year = car.Year,
-                Brand = car.Brand,
-                Model = car.Model,
-                Finish = car.Finish,
+				IdBrand = car.IdBrand,
+				IdModel = car.IdModel,
+				IdFinish = car.IdFinish,
                 DateOfBuy = car.DateOfBuy,
                 Price = car.Price,
                 RepairDescription = car.RepairDescription,
@@ -97,7 +146,10 @@ namespace OCR_DotNet_P5_ExpressVoitures.Services
                 SellingPrice = car.GetSellingPrice(),
                 Description = car.Description,
                 ImagePath = car.ImagePath == null ? @"img\\default.jpg" : car.ImagePath,
-                DateOfSale = car.DateOfSale
+                DateOfSale = car.DateOfSale,
+                BrandName = this.GetBrandName(car.IdBrand),
+                ModelName = this.GetModelName(car.IdModel),
+                FinishName = this.GetFinishName(car.IdFinish)
             };
         }
 
@@ -108,9 +160,9 @@ namespace OCR_DotNet_P5_ExpressVoitures.Services
                 IdCar = carModel.IdCar,
                 VIN = carModel.VIN,
                 Year = carModel.Year,
-                Brand = carModel.Brand,
-                Model = carModel.Model,
-                Finish = carModel.Finish,
+                IdBrand = carModel.IdBrand,
+				IdModel = carModel.IdModel,
+				IdFinish = carModel.IdFinish,
                 DateOfBuy = carModel.DateOfBuy,
                 Price = carModel.Price,
                 RepairDescription = carModel.RepairDescription,

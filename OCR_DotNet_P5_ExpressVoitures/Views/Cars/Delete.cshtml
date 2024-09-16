@@ -21,16 +21,16 @@
                 <td>@Model.Year</td>
             </tr>
             <tr>
-                <td><label asp-for="@Model.Brand" class="control-label"></label></td>
-                <td>@Model.Brand</td>
+                <td><label asp-for="@Model.IdBrand" class="control-label"></label></td>
+                <td>@Model.BrandName</td>
             </tr>
             <tr>
-                <td><label asp-for="@Model.Model" class="control-label"></label></td>
-                <td>@Model.Model</td>
+                <td><label asp-for="@Model.IdModel" class="control-label"></label></td>
+                <td>@Model.ModelName</td>
             </tr>
             <tr>
-                <td><label asp-for="@Model.Finish" class="control-label"></label></td>
-                <td>@Model.Finish</td>
+                <td><label asp-for="@Model.IdFinish" class="control-label"></label></td>
+                <td>@Model.FinishName</td>
             </tr>
             <tr>
                 <td><label asp-for="@Model.VIN" class="control-label"></label></td>
@@ -50,9 +50,9 @@
     <div class="d-flex flex-row justify-content-center">
         <input type="hidden" asp-for="IdCar" />
         <input type="hidden" asp-for="Year" />
-        <input type="hidden" asp-for="Brand" />
-        <input type="hidden" asp-for="Model" />
-        <input type="hidden" asp-for="Finish" />
+        <input type="hidden" asp-for="IdBrand" />
+        <input type="hidden" asp-for="IdModel" />
+        <input type="hidden" asp-for="IdFinish" />
         <input type="hidden" asp-for="ImagePath" />
         <a asp-action="Index" class="btn btn-action">Annuler</a>
         &nbsp;

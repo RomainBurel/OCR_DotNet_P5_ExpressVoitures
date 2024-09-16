@@ -18,5 +18,17 @@ namespace OCR_DotNet_P5_ExpressVoitures.Services
         public void Update(CarModel carModel, IFormFile? image);
 
         public void Delete(CarModel carModel);
+
+        public IEnumerable<Brand> GetAllBrands();
+
+        public IEnumerable<Model> GetBrandModels(int idBrand);
+
+        public IEnumerable<Finish> GetModelFinishes(int idModel);
+
+        public string GetBrandName(int idBrand);
+
+        public string GetModelName(int idModel);
+
+        public string GetFinishName(int idFinish);
     }
 }
